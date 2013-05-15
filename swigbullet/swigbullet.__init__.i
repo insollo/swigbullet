@@ -4,6 +4,8 @@ SIMD_EPSILON=0.0000001192092896;
 }
 %{
 #include <btBulletDynamicsCommon.h>
+#include <BulletCollision/CollisionDispatch/btGhostObject.h>
+#include <BulletCollision/BroadphaseCollision/btOverlappingPairCache.h>
 #include <gldrawer.h>
 %}
 
@@ -203,6 +205,7 @@ SIMD_EPSILON=0.0000001192092896;
 %include "BulletCollision/BroadphaseCollision/btBroadphaseInterface.h"
 %include "BulletCollision/BroadphaseCollision/btDbvtBroadphase.h"
 %include "BulletCollision/BroadphaseCollision/btDispatcher.h"
+%include "BulletCollision/BroadphaseCollision/btOverlappingPairCache.h"
 %include "BulletCollision/CollisionDispatch/btCollisionConfiguration.h"
 %include "BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h"
 %include "BulletCollision/CollisionDispatch/btCollisionDispatcher.h"
@@ -216,6 +219,7 @@ SIMD_EPSILON=0.0000001192092896;
 %include "BulletCollision/CollisionShapes/btPolyhedralConvexShape.h"
 %include "BulletCollision/CollisionShapes/btBoxShape.h"
 %include "BulletCollision/CollisionDispatch/btCollisionObject.h"
+%include "BulletCollision/CollisionDispatch/btGhostObject.h"
 %include "BulletCollision/CollisionDispatch/btCollisionWorld.h"
 %include "BulletDynamics/Dynamics/btDynamicsWorld.h"
 %include "BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h"
