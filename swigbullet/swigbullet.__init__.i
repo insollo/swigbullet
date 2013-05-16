@@ -6,6 +6,8 @@ SIMD_EPSILON=0.0000001192092896;
 #include <btBulletDynamicsCommon.h>
 #include <BulletCollision/CollisionDispatch/btGhostObject.h>
 #include <BulletCollision/BroadphaseCollision/btOverlappingPairCache.h>
+#include <BulletCollision/NarrowPhaseCollision/btManifoldPoint.h>
+#include <BulletCollision/CollisionDispatch/btCollisionWorld.h>
 #include <gldrawer.h>
 %}
 
@@ -206,6 +208,7 @@ SIMD_EPSILON=0.0000001192092896;
 %include "BulletCollision/BroadphaseCollision/btDbvtBroadphase.h"
 %include "BulletCollision/BroadphaseCollision/btDispatcher.h"
 %include "BulletCollision/BroadphaseCollision/btOverlappingPairCache.h"
+%include "BulletCollision/NarrowPhaseCollision/btManifoldPoint.h"
 %include "BulletCollision/CollisionDispatch/btCollisionConfiguration.h"
 %include "BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h"
 %include "BulletCollision/CollisionDispatch/btCollisionDispatcher.h"
@@ -436,3 +439,43 @@ static btConcaveShape* downcast(btCollisionShape *s)
 
 };
 
+
+%{
+struct btContactResultCallback: public ContactResultCallback {
+
+    virtual btScalar  addSingleResult(btManifoldPoint& cp,
+        const btCollisionObject* colObj0Wrap, int partId0,int index0,
+        const btCollisionObject* colObj1Wrap,int partId1,int index1) {
+        printf("C COLLISION\n");
+        return 0;
+    }
+
+};
+%}
+
+
+
+class  ContactResultCallback
+{
+    short int   m_collisionFilterGroup;
+    short int   m_collisionFilterMask;
+
+    ContactResultCallback();
+
+    virtual ~ContactResultCallback();
+
+    virtual bool needsCollision(btBroadphaseProxy* proxy0) const;
+
+    virtual     btScalar        addSingleResult(btManifoldPoint& cp,    const btCollisionObject* colObj0,int partId0,int index0,const btCollisionObject* colObj1,int partId1,int index1) = 0;
+};
+
+
+%feature("director") btContactResultCallback;
+
+class btContactResultCallback : public ContactResultCallback {
+
+    virtual btScalar  addSingleResult(btManifoldPoint& cp,
+        const btCollisionObject* colObj0Wrap, int partId0,int index0,
+        const btCollisionObject* colObj1Wrap,int partId1,int index1);
+
+};
