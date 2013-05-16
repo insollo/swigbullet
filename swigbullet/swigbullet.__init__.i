@@ -81,7 +81,7 @@ SIMD_EPSILON=0.0000001192092896;
         $result =  PyTuple_New(2);
         PyTuple_SetItem($result, 0, v1);
         PyTuple_SetItem($result, 1, v2);
-    } 
+    }
     else if(PyTuple_Check($result)){
         // connect return values
         PyObject *o1 = $result;
@@ -113,7 +113,7 @@ SIMD_EPSILON=0.0000001192092896;
     if ((!$result) || ($result == Py_None)) {
         // a single return value
         $result =  v1;
-    } 
+    }
     else if(PyTuple_Check($result)){
         // connect return values
         PyObject *o1 = $result;
@@ -134,12 +134,12 @@ SIMD_EPSILON=0.0000001192092896;
 
 // getOpenGLMatrix
 %typemap(ignore) (btScalar *m)(btScalar tmpM[16]) {
-    $1=tmpM;    
+    $1=tmpM;
 }
 // Draw
 %typemap(in)(const btScalar *m)(btScalar tmpM[16]) {
     if (PyTuple_Check($input)) {
-        if (!PyArg_ParseTuple($input,"ffffffffffffffff", 
+        if (!PyArg_ParseTuple($input,"ffffffffffffffff",
                     tmpM+0, tmpM+1, tmpM+2, tmpM+3,
                     tmpM+4, tmpM+5, tmpM+6, tmpM+7,
                     tmpM+8, tmpM+9, tmpM+10, tmpM+11,
@@ -164,7 +164,7 @@ SIMD_EPSILON=0.0000001192092896;
     if ((!$result) || ($result == Py_None)) {
         // 単独の返り値
         $result = o;
-    } 
+    }
     else if(PyTuple_Check($result)){
         // 既存のtuple返り値と連結
         PyObject *o2 = $result;
@@ -286,7 +286,7 @@ btVector3 operator*(const btScalar s) {
             self.setZ(v)
         else:
             raise KeyError()
-} 
+}
 
 };
 
