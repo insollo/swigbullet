@@ -8,6 +8,7 @@ SIMD_EPSILON=0.0000001192092896;
 #include <BulletCollision/BroadphaseCollision/btOverlappingPairCache.h>
 #include <BulletCollision/NarrowPhaseCollision/btManifoldPoint.h>
 #include <BulletCollision/CollisionDispatch/btCollisionWorld.h>
+#include <BulletCollision/NarrowPhaseCollision/btPersistentManifold.h>
 #include <gldrawer.h>
 %}
 
@@ -241,6 +242,7 @@ SIMD_EPSILON=0.0000001192092896;
 %include "BulletDynamics/ConstraintSolver/btUniversalConstraint.h"
 %include "BulletDynamics/ConstraintSolver/btHinge2Constraint.h"
 %include "BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h"
+%include "BulletCollision/NarrowPhaseCollision/btPersistentManifold.h"
 
 %include "GL_ShapeDrawer.h"
 %include "profiler.h"
@@ -439,6 +441,17 @@ static btConcaveShape* downcast(btCollisionShape *s)
 
 };
 
+%extend btPersistentManifold {
+
+    btCollisionObject *get_body_0() {
+        return (btCollisionObject *)$self->getBody0();
+    }
+
+    btCollisionObject *get_body_1() {
+        return (btCollisionObject *)$self->getBody1();
+    }
+};
+
 
 %{
 struct btContactResultCallback: public ContactResultCallback {
@@ -446,11 +459,11 @@ struct btContactResultCallback: public ContactResultCallback {
     virtual btScalar  addSingleResult(btManifoldPoint& cp,
         const btCollisionObject* colObj0Wrap, int partId0,int index0,
         const btCollisionObject* colObj1Wrap,int partId1,int index1) {
-        printf("C COLLISION\n");
         return 0;
     }
 
 };
+
 %}
 
 
