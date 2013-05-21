@@ -492,3 +492,17 @@ class btContactResultCallback : public ContactResultCallback {
         const btCollisionObject* colObj1Wrap,int partId1,int index1);
 
 };
+
+
+
+%{
+void set_global_deactivation_time(btScalar time) {
+    gDeactivationTime = time;
+}
+btScalar get_global_deactivation_time() {
+    return gDeactivationTime;
+}
+%}
+
+void set_global_deactivation_time(btScalar time);
+btScalar get_global_deactivation_time();
